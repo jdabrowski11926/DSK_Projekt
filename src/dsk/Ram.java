@@ -60,7 +60,7 @@ public class Ram {
 		if(x >= memory.length || y >= 8) {
 			throw new IndexOutOfBoundsException();
 		}
-		BitOperations.setBit(memory[x], y, value);
+		memory[x] = BitOperations.setBit(memory[x], y, value);
 	}
 	
 	public boolean getRam(int x, int y) {

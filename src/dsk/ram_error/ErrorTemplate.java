@@ -8,6 +8,8 @@ public abstract class ErrorTemplate {
 	private int y;
 	
 	public ErrorTemplate(Ram ram, int x, int y) {
+		this.x = x;
+		this.y = y;
 		this.ram = ram;
 	}
 	

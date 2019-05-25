@@ -11,6 +11,7 @@ public class Psf extends ErrorTemplate{
 
 	public Psf(Ram ram, int x, int y, PsfType psfType) {
 		super(ram, x, y);
+		
 		this.psfType = psfType;
 	}
 
