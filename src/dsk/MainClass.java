@@ -4,7 +4,7 @@ public class MainClass {
 		
 	public static void main(String[] args) {		
 
-		Ram ram = new Ram(1_000_000);
+		Ram ram = new Ram(1_000_000_000);
 	// Iloœci b³êdów
 		int errorsSAF = 10;
 		int errorsSOF = 10;

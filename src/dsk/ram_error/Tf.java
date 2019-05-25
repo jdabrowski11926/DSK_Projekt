@@ -16,21 +16,24 @@ public class Tf extends ErrorTemplate{
 
 	@Override
 	public boolean getRam(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
+		return ram.getRam(x, y);
 	}
 
 	@Override
-	public void setRam(int x, int y, boolean value) {
+	public void setRam(int x, int y, boolean value) {		
 		switch (disabledDirection) {
 		case ZERO_TO_ONE:
-			
+			if(value == false) { // Mozna ustawiac na 0
+				ram.setRam(x, y, value);
+			}
 			break;
 		case ONE_TO_ZERO:
-			
+			if(value == true) { // Mozna ustawiac na 1
+				ram.setRam(x, y, value);
+			}
 			break;
 		}
-		ram.setRam(x, y, value);
+		
 	}
 
 }
