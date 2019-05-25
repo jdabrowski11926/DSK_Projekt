@@ -92,4 +92,12 @@ public class Ram {
 			return getRam(x, y);
 		}
 	}
+	
+	public int getRamSizeX() {
+		return memory.length;
+	}
+	
+	public int getRamSizeY() {
+		return 8;
+	}
 }
