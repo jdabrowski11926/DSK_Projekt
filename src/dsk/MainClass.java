@@ -1,10 +1,10 @@
 package dsk;
 
 public class MainClass {
-
-	public static void main(String[] args) {
 		
-		Ram ram = new Ram(1024,1024);
+	public static void main(String[] args) {		
+
+		Ram ram = new Ram(1_000_000);
 	// Iloœci b³êdów
 		int errorsSAF = 10;
 		int errorsSOF = 10;

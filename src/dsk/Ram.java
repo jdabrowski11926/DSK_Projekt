@@ -1,44 +1,33 @@
 package dsk;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Random;
 import java.util.TreeMap;
 
 import dsk.ram_error.ErrorTemplate;
 
 public class Ram {
-	
-	private boolean[][] memory;
+	private byte[] memory;
 	private ArrayList<ErrorTemplate> errors = new ArrayList<ErrorTemplate>();
 
 	
-	Ram(int sizeX, int sizeY){
-		memory = new boolean[sizeX][sizeY];
+	Ram(int size){
+		memory = new byte[size];
 	}
 	
 	public void randomRam() {
 		Random generator = new Random();
-		for(int i=0; i<memory.length ; i++) {
-			for(int j=0; j<memory.length ; j++) {
-				if (generator.nextDouble()<0.5) {
-					memory[i][j] = true;
-				}
-				else memory[i][j] = true;
-			}
-			
-		}
+		generator.nextBytes(memory);
 	}
 	
 	public void showRam() {
-		for(int i=0; i<memory.length ; i++) {
-			for(int j=0; j<memory.length ; j++) {
-				System.out.print(memory[i][j]);
-			}
+		for(int i=0;i<memory.length; i++) {
+			BitOperations.printBinary(memory[i]);
 		}
 	}
 	
 	public void damageRam(int SAF, int SOF, int DRF, int TF, int CF, int PSF) {
-		System.out.println("RAM ZMIA¯D¯ONY");
 		for(int i=0;i<SAF;i++) {
 			
 		}
@@ -68,11 +57,21 @@ public class Ram {
 	}
 	
 	public void setRam(int x, int y, boolean value) {
-		memory[x][y] = value;
+		if(x >= memory.length || y >= 8) {
+			throw new IndexOutOfBoundsException();
+		}
+		BitOperations.setBit(memory[x], y, value);
 	}
 	
 	public boolean getRam(int x, int y) {
-		return memory[x][y];
+		if(x >= memory.length || y >= 8) {
+			throw new IndexOutOfBoundsException();
+		}
+		return BitOperations.getBit(memory[x], y);
+	}
+	
+	public void addError(ErrorTemplate et) {
+		this.errors.add(et);
 	}
 	
 	// Operacje mogace nie zadzialac (wykorzystane w symulacji)
@@ -92,9 +91,5 @@ public class Ram {
 		}else {
 			return getRam(x, y);
 		}
-	}
-	
-	public void addError(ErrorTemplate et) {
-		this.errors.add(et);
 	}
 }
