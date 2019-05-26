@@ -10,7 +10,6 @@ import dsk.ram_error.ErrorTemplate;
 public class Ram {
 	private byte[] memory;
 	private ArrayList<ErrorTemplate> errors = new ArrayList<ErrorTemplate>();
-
 	
 	public Ram(int size){
 		memory = new byte[size];
