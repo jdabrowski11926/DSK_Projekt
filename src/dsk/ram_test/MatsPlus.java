@@ -20,7 +20,6 @@ public class MatsPlus extends TestAlgorithm{
 		runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0, Operation.WRITE_1));
 		runAlgorithmStep(Direction.DOWN, Arrays.asList(Operation.READ_1,Operation.WRITE_0));
 		return result;
-		
 	}
 
 }
