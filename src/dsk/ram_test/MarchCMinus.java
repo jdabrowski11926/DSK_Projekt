@@ -1,8 +1,12 @@
 package dsk.ram_test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import dsk.ram.Ram;
+import dsk.ram_test.TestAlgorithm.Direction;
+import dsk.ram_test.TestAlgorithm.Operation;
 
 public class MarchCMinus extends TestAlgorithm{
 
@@ -12,8 +16,14 @@ public class MarchCMinus extends TestAlgorithm{
 
 	@Override
 	public List<ErrorLog> test() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ErrorLog> result = new ArrayList<ErrorLog>();
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.WRITE_0)) );
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0, Operation.WRITE_1)) );
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_1,Operation.WRITE_0)) );
+		result.addAll( runAlgorithmStep(Direction.DOWN, Arrays.asList(Operation.READ_0, Operation.WRITE_1)) );
+		result.addAll( runAlgorithmStep(Direction.DOWN, Arrays.asList(Operation.READ_1, Operation.WRITE_0)) );
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0)) );
+		return result;
+		//return null;
 	}
-
 }
