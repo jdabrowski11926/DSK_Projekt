@@ -1,6 +1,6 @@
 package dsk.ram_error;
 
-import dsk.Ram;
+import dsk.ram.Ram;
 
 public abstract class ErrorTemplate {
 	protected Ram ram;

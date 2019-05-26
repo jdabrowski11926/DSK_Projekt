@@ -1,4 +1,4 @@
-package dsk;
+package dsk.ram;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -12,7 +12,7 @@ public class Ram {
 	private ArrayList<ErrorTemplate> errors = new ArrayList<ErrorTemplate>();
 
 	
-	Ram(int size){
+	public Ram(int size){
 		memory = new byte[size];
 	}
 	

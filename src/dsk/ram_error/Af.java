@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import java.util.Random;
 
-import dsk.Ram;
+import dsk.ram.Ram;
 
 public class Af extends ErrorTemplate{
 

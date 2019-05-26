@@ -1,4 +1,4 @@
-package dsk;
+package dsk.ram;
 
 public class BitOperations{
 	

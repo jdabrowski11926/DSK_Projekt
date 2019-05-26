@@ -1,6 +1,6 @@
 package dsk.ram_error;
 
-import dsk.Ram;
+import dsk.ram.Ram;
 
 public class Saf extends ErrorTemplate{
 	public Saf(Ram ram, int x, int y) {
