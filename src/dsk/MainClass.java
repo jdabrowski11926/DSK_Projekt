@@ -1,6 +1,7 @@
 package dsk;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dsk.ram.Ram;
@@ -10,6 +11,7 @@ import dsk.ram.error.RamError;
 import dsk.ram.stats.Draw;
 import dsk.ram.test_algorithm.Mats;
 import dsk.ram.test_algorithm.RamTestAlgorithm;
+import dsk.ram.test_algorithm.TestLog;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -20,14 +22,19 @@ import javafx.stage.Stage;
 
 public class MainClass {
 	
-	public static void runTests(Ram ram, List<RamError> errors, List<RamTestAlgorithm> algorithms) {
+	public static List<TestLog> runTestsForEachError(Ram ram, List<RamError> errors, List<RamTestAlgorithm> algorithms) {
+		List<TestLog> testLogs = new ArrayList<TestLog>();
+		ram.clearErrors();
 		for(RamError error : errors) {
 			ram.addError(error);
 			for(RamTestAlgorithm algorithm : algorithms) {
-				algorithm.test(ram);
+				testLogs.add(
+						new TestLog(algorithm, algorithm.test(ram), error)
+				);
 			}
 			ram.clearErrors();
 		}
+		return testLogs;
 	}
 	
 	public static void main(String[] args) {		
