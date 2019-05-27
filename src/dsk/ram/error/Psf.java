@@ -50,4 +50,9 @@ public class Psf extends RamError{
 		}
 	}
 
+	@Override
+	public String getName() {
+		return "PSF";
+	}
+
 }

@@ -18,4 +18,5 @@ public abstract class RamError {
 	}
 	public abstract boolean getRam(int x, int y);
 	public abstract void setRam(int x, int y, boolean value);
+	public abstract String getName();
 }

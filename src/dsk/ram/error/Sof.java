@@ -21,5 +21,10 @@ public class Sof extends RamError{
 		ram.setRam(x, y, value);
 	}
 
+	@Override
+	public String getName() {
+		return "SOF";
+	}
+
 
 }

@@ -36,4 +36,9 @@ public class Tf extends RamError{
 		
 	}
 
+	@Override
+	public String getName() {
+		return "TF";
+	}
+
 }

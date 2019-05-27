@@ -46,6 +46,11 @@ public class Cf extends RamError{
 		
 	}
 
+	@Override
+	public String getName() {
+		return "CF";
+	}
+
 
 
 }

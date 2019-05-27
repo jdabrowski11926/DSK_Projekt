@@ -16,4 +16,9 @@ public class Saf extends RamError{
 	public void setRam(int x, int y, boolean value) {
 		//DO NOTHING
 	}
+
+	@Override
+	public String getName() {
+		return "SAF";
+	}
 }
