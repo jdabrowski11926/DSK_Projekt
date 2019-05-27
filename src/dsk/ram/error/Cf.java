@@ -1,5 +1,8 @@
 package dsk.ram.error;
 
+import java.util.Arrays;
+import java.util.List;
+
 import dsk.ram.Ram;
 
 public class Cf extends RamError{
@@ -49,6 +52,11 @@ public class Cf extends RamError{
 	@Override
 	public String getName() {
 		return "CF";
+	}
+	
+	@Override
+	public List<Address> getAffectedAdresses() {
+		return Arrays.asList(new Address(pairX, pairY));
 	}
 
 

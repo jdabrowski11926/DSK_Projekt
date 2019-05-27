@@ -8,7 +8,7 @@ import dsk.ram.Ram;
 
 public class MarchX extends RamTestAlgorithm{
 
-	public MarchX(Ram ram) {
+	public MarchX() {
 		super();
 	}
 
