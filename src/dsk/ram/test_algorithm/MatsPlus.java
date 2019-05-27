@@ -23,4 +23,9 @@ public class MatsPlus extends RamTestAlgorithm{
 		return result;
 	}
 
+	@Override
+	public String getName() {
+		return "MATS+";
+	}
+
 }

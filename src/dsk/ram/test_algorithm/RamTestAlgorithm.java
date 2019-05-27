@@ -21,7 +21,8 @@ public abstract class RamTestAlgorithm {
 	}
 
 	public abstract List<ErrorLog> test(Ram ram);
-
+	public abstract String getName();
+	
 	protected void writeRam(int x, int y, boolean value, Ram ram) {
 		stepCounter++;
 		ram.write(x, y, value);

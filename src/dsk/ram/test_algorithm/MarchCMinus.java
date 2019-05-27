@@ -26,4 +26,9 @@ public class MarchCMinus extends RamTestAlgorithm{
 		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0), ram) );
 		return result;
 	}
+
+	@Override
+	public String getName() {
+		return "MARCH C-";
+	}
 }

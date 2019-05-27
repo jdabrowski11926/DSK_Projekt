@@ -23,4 +23,9 @@ public class MarchX extends RamTestAlgorithm{
 		return result;
 	}
 
+	@Override
+	public String getName() {
+		return "MARCH X";
+	}
+
 }
