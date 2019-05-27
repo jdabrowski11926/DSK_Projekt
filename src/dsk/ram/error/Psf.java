@@ -1,5 +1,9 @@
 package dsk.ram.error;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import dsk.ram.Ram;
 
 public class Psf extends RamError{
@@ -53,6 +57,46 @@ public class Psf extends RamError{
 	@Override
 	public String getName() {
 		return "PSF";
+	}
+	
+	private boolean isValidAdress(Adress adress) {
+		try {
+			ram.getRam(adress.getX(), adress.getY());
+			return true;
+		}catch(IndexOutOfBoundsException e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public List<Adress> getAffectedAdresses() {
+		ArrayList<Adress> result = new ArrayList<Adress>();
+		
+		// Srodkowe
+		List<Adress> resultCanditates = Arrays.asList(
+				new Adress(x-1, y),
+				new Adress(x+1, y),
+				new Adress(x, y-1),
+				new Adress(x, y+1)
+				
+		);
+		
+		// Przekatne
+		if(psfType == PsfType.PSF_9) {
+			resultCanditates.add(new Adress(x-1, y+1));
+			resultCanditates.add(new Adress(x-1, y-1));
+			resultCanditates.add(new Adress(x+1, y-1));
+			resultCanditates.add(new Adress(x+1, y+1));
+		}
+		
+		// Sprawdzenie czy adresy nie wykraczaja poza rozmiar ramu
+		for(Adress candidate : resultCanditates) {
+			if(isValidAdress(candidate)) {
+				result.add(candidate);
+			}
+		}
+		
+		return result;
 	}
 
 }
