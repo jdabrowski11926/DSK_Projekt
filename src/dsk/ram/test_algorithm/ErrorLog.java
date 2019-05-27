@@ -1,6 +1,6 @@
 package dsk.ram.test_algorithm;
 
-
+import dsk.ram.error.Address;
 
 public class ErrorLog {
 	private int x;
@@ -35,5 +35,9 @@ public class ErrorLog {
 				   this.value == el.value;
 		}
 		return super.equals(obj);
+	}
+	
+	public Address getAddress() {
+		return new Address(x, y);
 	}
 }
