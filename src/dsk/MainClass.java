@@ -4,6 +4,7 @@ package dsk;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import dsk.ram.Ram;
 import dsk.ram.error.Af;
@@ -15,6 +16,7 @@ import dsk.ram.error.Saf;
 import dsk.ram.error.Sof;
 import dsk.ram.error.Tf;
 import dsk.ram.stats.Draw;
+import dsk.ram.test_algorithm.AlgorithmTester;
 import dsk.ram.test_algorithm.MarchCMinus;
 import dsk.ram.test_algorithm.MarchX;
 import dsk.ram.test_algorithm.MarchY;
@@ -32,43 +34,49 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 public class MainClass {
-	
-	public static List<TestLog> runTestsForEachError(Ram ram, List<RamError> errors, List<RamTestAlgorithm> algorithms) {
-		List<TestLog> testLogs = new ArrayList<TestLog>();
-		ram.clearErrors();
-		for(RamError error : errors) {
-			ram.addError(error);
-			for(RamTestAlgorithm algorithm : algorithms) {
-				TestLog tl = new TestLog(algorithm, error);
-				tl.addErrorLogs(algorithm.test(ram));
-				
-				testLogs.add(tl);
-			}
-			ram.clearErrors();
-		}
-		return testLogs;
-	}
-	
 	public static void main(String[] args) {		
 
-	Ram ram = new Ram(100);
+	int RAM_LENGTH = 100;
+	int ITERATIONS = 10000;
+	int RAM_WIDTH = 8;
+	
+	Ram ram = new Ram(RAM_LENGTH);
+	ram.randomRam();
 		
+	Random randomizer = new Random();
+	
+	
+	String[] rows = null;
+	String[] cols = null;
+	int[] affectedCellsCount = null;
+	int[][] detectedCellsCount = null;
+	
+	for(int i=0; i<ITERATIONS; i++) {
+		int x = randomizer.nextInt(RAM_LENGTH);
+		int y = randomizer.nextInt(RAM_WIDTH);
 		
-		List<TestLog> testLogs = runTestsForEachError(
+		int x1 = randomizer.nextInt(RAM_LENGTH);
+		int y1 = randomizer.nextInt(RAM_WIDTH) ;
+		while(x == x1 && y == y1) {
+			x1 = randomizer.nextInt(RAM_LENGTH);
+			y1 = randomizer.nextInt(RAM_WIDTH);
+		}
+		
+		AlgorithmTester at = new AlgorithmTester(
 				ram,
 				Arrays.asList(
-						new Af(ram, 50, 5),
-						new Cf(ram, 50, 5, 40, 5, Cf.CfType.CF_D),
-						new Cf(ram, 50, 5, 40, 5, Cf.CfType.CF_ID_0),
-						new Cf(ram, 50, 5, 40, 5, Cf.CfType.CF_ID_1),
-						new Cf(ram, 50, 5, 40, 5, Cf.CfType.CF_IN),
-						new Drf(ram, 50, 5, 10, 20),
-						new Psf(ram, 50, 5, Psf.PsfType.PSF_4),
-						new Psf(ram, 50, 5, Psf.PsfType.PSF_9),
-						new Saf(ram, 50, 5),
-						new Sof(ram, 50, 5),
-						new Tf(ram, 50, 5, Tf.Direction.ONE_TO_ZERO),
-						new Tf(ram, 50, 5, Tf.Direction.ZERO_TO_ONE)
+						new Af(ram, x, y),
+						new Cf(ram, x, y, x1, y1, Cf.CfType.CF_D),
+						new Cf(ram, x, y, x1, y1, Cf.CfType.CF_ID_0),
+						new Cf(ram, x, y, x1, y1, Cf.CfType.CF_ID_1),
+						new Cf(ram, x, y, x1, y1, Cf.CfType.CF_IN),
+						new Drf(ram, x, y, 10, 20),
+						new Psf(ram, x, y, Psf.PsfType.PSF_4),
+						new Psf(ram, x, y, Psf.PsfType.PSF_9),
+						new Saf(ram, x, y),
+						new Sof(ram, x, y),
+						new Tf(ram, x, y, Tf.Direction.ONE_TO_ZERO),
+						new Tf(ram, x, y, Tf.Direction.ZERO_TO_ONE)
 				),
 				Arrays.asList(
 						new MarchCMinus(),
@@ -80,19 +88,46 @@ public class MainClass {
 				)
 		);
 		
-		for(TestLog tl : testLogs) {
-			System.out.println(tl.summary());
+		rows = at.getRowLabels();
+		cols = at.getColumnLabels();
+		if(affectedCellsCount != null) {
+			for(int xx=0; xx<affectedCellsCount.length; xx++) {
+				affectedCellsCount[xx] += at.getAffectedCellCount()[xx];
+			}
+		}else {
+			affectedCellsCount = at.getAffectedCellCount();
 		}
-				
 		
-		
-		ram.addError(new Af(ram,5,5));
-		
-		Mats testAlgorithm = new Mats();
-		testAlgorithm.test(ram);
-		
-		ram.randomRam();
-		ram.showRam();
+		if(detectedCellsCount != null) {
+			for(int xx=0; xx<detectedCellsCount.length; xx++) {
+				for(int yy=0; yy<detectedCellsCount[xx].length; yy++) {
+					detectedCellsCount[xx][yy] += at.getDetectedCellCount()[xx][yy];
+				}
+			}
+		}else {
+			detectedCellsCount = at.getDetectedCellCount();
+		}
+	}
+
+//	String[] rows;
+//	String[] cols;
+//	int[] affectedCellsCount;
+//	int[][] detectedCellsCount;
+//	
+	for(int i=0;i<cols.length; i++) {
+		System.out.print(cols[i]+"\t");
+	}
+	System.out.println();
+	for(int i=0;i<rows.length; i++) {
+		for(int j=0;j < cols.length; j++) {
+			System.out.print(detectedCellsCount[i][j]+"\t");
+		}
+		System.out.println(rows[i]);
+	}
+	for(int i=0;i<cols.length; i++) {
+		System.out.print(affectedCellsCount[i]+"\t");
+	}
+	System.out.println();
 		
 		Draw draw = new Draw();
 		new Thread() {

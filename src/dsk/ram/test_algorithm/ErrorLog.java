@@ -2,7 +2,7 @@ package dsk.ram.test_algorithm;
 
 import dsk.ram.error.Address;
 
-public class ErrorLog {
+public class ErrorLog implements Comparable<ErrorLog>{
 	private int x;
 	private int y;
 	private boolean value;
@@ -31,13 +31,21 @@ public class ErrorLog {
 		if(obj instanceof ErrorLog) {
 			ErrorLog el = (ErrorLog)obj;
 			return this.x == el.x &&
-				   this.y == el.y &&
-				   this.value == el.value;
+				   this.y == el.y;
 		}
 		return super.equals(obj);
 	}
 	
 	public Address getAddress() {
 		return new Address(x, y);
+	}
+
+	@Override
+	public int compareTo(ErrorLog o) {
+		int xCompare = x-o.getX();
+		if(xCompare != 0) {
+			return xCompare;
+		}
+		return y-o.getY();
 	}
 }

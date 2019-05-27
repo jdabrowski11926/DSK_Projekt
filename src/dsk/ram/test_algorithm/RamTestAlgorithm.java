@@ -54,13 +54,13 @@ public abstract class RamTestAlgorithm {
 						case READ_0:
 							if (readRam(i, j, ram) == true) {
 								result.add(new ErrorLog(i, j, true));
-								System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
+								//System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
 							}
 							break;
 						case READ_1:
 							if (readRam(i, j, ram) == false) {
 								result.add(new ErrorLog(i, j, false));
-								System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
+								//System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
 							}
 							break;
 						}
@@ -84,13 +84,13 @@ public abstract class RamTestAlgorithm {
 						case READ_0:
 							if (readRam(i, j, ram) == true) {
 								result.add(new ErrorLog(i, j, true));
-								System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
+								//System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
 							}
 							break;
 						case READ_1:
 							if (readRam(i, j, ram) == false) {
 								result.add(new ErrorLog(i, j, false));
-								System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
+								//System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
 							}
 							break;
 						}

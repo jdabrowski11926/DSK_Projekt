@@ -17,9 +17,9 @@ public class MatsPlus extends RamTestAlgorithm{
 	public List<ErrorLog> test(Ram ram) {
 		stepCounter = 0;
 		List<ErrorLog> result = new ArrayList<ErrorLog>();
-		runAlgorithmStep(Direction.UP, Arrays.asList(Operation.WRITE_0), ram);
-		runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0, Operation.WRITE_1), ram);
-		runAlgorithmStep(Direction.DOWN, Arrays.asList(Operation.READ_1,Operation.WRITE_0), ram);
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.WRITE_0), ram) );
+		result.addAll( runAlgorithmStep(Direction.UP, Arrays.asList(Operation.READ_0, Operation.WRITE_1), ram) );
+		result.addAll( runAlgorithmStep(Direction.DOWN, Arrays.asList(Operation.READ_1,Operation.WRITE_0), ram) );
 		return result;
 	}
 

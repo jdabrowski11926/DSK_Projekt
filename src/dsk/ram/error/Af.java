@@ -14,31 +14,40 @@ public class Af extends RamError{
 	public boolean getRam(int x, int y) {
 	// Pobranie z komórki s¹siaduj¹cej
 		Random random = new Random();
-		int fate = random.nextInt(3);
+		int fate = random.nextInt(4);
 		boolean neighborValue = false;
+		System.out.println("x = "+x+ " y = "+y+ ram.getRamSizeX());
 		if(fate==0) {	// Komórka ni¿ej
-			if(x>=ram.getRamSizeX()) {
+			if(x>=ram.getRamSizeX()-1) {
 				neighborValue = ram.getRam(x-1, y);
 			}
-			neighborValue = ram.getRam(x+1, y);
+			else {
+				neighborValue = ram.getRam(x+1, y);
+			}
 		}
 		if(fate==1) {	// Komórka wy¿ej
 			if(x==0) {
 				neighborValue = ram.getRam(x+1, y);
 			}
-			neighborValue = ram.getRam(x-1, y);
+			else{
+				neighborValue = ram.getRam(x-1, y);
+			}
 		}
 		if(fate==2) {	// Komórka z lewej
 			if(y==0) {
 				neighborValue = ram.getRam(x, y+1);
 			}
-			neighborValue = ram.getRam(x, y-1);
-		}
-		if(fate==3) {	// Komórka z prawej
-			if(y>=ram.getRamSizeY()) {
+			else {
 				neighborValue = ram.getRam(x, y-1);
 			}
-			neighborValue = ram.getRam(x, y+1);
+		}
+		if(fate==3) {	// Komórka z prawej
+			if(y>=ram.getRamSizeY()-1) {
+				neighborValue = ram.getRam(x, y-1);
+			}
+			else {
+				neighborValue = ram.getRam(x, y+1);
+			}
 		}
 		boolean baseValue = ram.getRam(x, y);
 	// Operacja sumy lub iloczynu
