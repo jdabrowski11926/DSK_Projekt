@@ -39,8 +39,7 @@ public class MainClass {
 	
 	public static void main(String[] args) {		
 
-		Ram ram = new Ram(10);
-		
+		Ram ram = new Ram(10);	
 		
 		ram.addError(new Af(ram,5,5));
 		
@@ -48,15 +47,15 @@ public class MainClass {
 		testAlgorithm.test(ram);
 		
 		ram.randomRam();
-		ram.showRam();
+		ram.showRam();	
 		
 		Draw draw = new Draw();
 		new Thread() {
             @Override
             public void run() {
-            	String[] a = {"12", "32", "1"};
-                draw.launch(Draw.class, a);
-                
+            	String[] a = {"1", "2", "-10", "4", "5", "6", "7", 
+            			"1", "2", "3", "4", "5", "6", "7"};
+                draw.launch(Draw.class, a);       
             }
         }.start();
         
