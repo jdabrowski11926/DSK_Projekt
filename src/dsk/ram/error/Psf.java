@@ -59,7 +59,7 @@ public class Psf extends RamError{
 		return "PSF";
 	}
 	
-	private boolean isValidAdress(Adress adress) {
+	private boolean isValidAdress(Address adress) {
 		try {
 			ram.getRam(adress.getX(), adress.getY());
 			return true;
@@ -69,28 +69,28 @@ public class Psf extends RamError{
 	}
 	
 	@Override
-	public List<Adress> getAffectedAdresses() {
-		ArrayList<Adress> result = new ArrayList<Adress>();
+	public List<Address> getAffectedAdresses() {
+		ArrayList<Address> result = new ArrayList<Address>();
 		
 		// Srodkowe
-		List<Adress> resultCanditates = Arrays.asList(
-				new Adress(x-1, y),
-				new Adress(x+1, y),
-				new Adress(x, y-1),
-				new Adress(x, y+1)
+		List<Address> resultCanditates = new ArrayList<Address>( Arrays.asList( //Arrays.asList nie wspiera dodawania elementow
+				new Address(x-1, y),
+				new Address(x+1, y),
+				new Address(x, y-1),
+				new Address(x, y+1)
 				
-		);
+		));
 		
 		// Przekatne
 		if(psfType == PsfType.PSF_9) {
-			resultCanditates.add(new Adress(x-1, y+1));
-			resultCanditates.add(new Adress(x-1, y-1));
-			resultCanditates.add(new Adress(x+1, y-1));
-			resultCanditates.add(new Adress(x+1, y+1));
+			resultCanditates.add(new Address(x-1, y+1));
+			resultCanditates.add(new Address(x-1, y-1));
+			resultCanditates.add(new Address(x+1, y-1));
+			resultCanditates.add(new Address(x+1, y+1));
 		}
 		
 		// Sprawdzenie czy adresy nie wykraczaja poza rozmiar ramu
-		for(Adress candidate : resultCanditates) {
+		for(Address candidate : resultCanditates) {
 			if(isValidAdress(candidate)) {
 				result.add(candidate);
 			}

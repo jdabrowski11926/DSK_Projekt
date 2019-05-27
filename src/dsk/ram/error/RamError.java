@@ -24,7 +24,7 @@ public abstract class RamError {
 	public abstract void setRam(int x, int y, boolean value);
 	public abstract String getName();
 	
-	public List<Adress> getAffectedAdresses(){
-		return Arrays.asList(new Adress(x, y));
+	public List<Address> getAffectedAdresses(){
+		return Arrays.asList(new Address(x, y));
 	}
 }

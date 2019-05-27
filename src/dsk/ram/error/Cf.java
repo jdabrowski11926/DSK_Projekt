@@ -55,8 +55,8 @@ public class Cf extends RamError{
 	}
 	
 	@Override
-	public List<Adress> getAffectedAdresses() {
-		return Arrays.asList(new Adress(pairX, pairY));
+	public List<Address> getAffectedAdresses() {
+		return Arrays.asList(new Address(pairX, pairY));
 	}
 
 
