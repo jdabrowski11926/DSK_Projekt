@@ -3,6 +3,7 @@ package dsk.ram.test_algorithm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 import dsk.ram.error.RamError;
 
@@ -31,8 +32,14 @@ public class TestLog {
 		return new ArrayList<ErrorLog>(errorLogs);
 	}
 
-	public List<RamError> getRamErrors() {
-		return new ArrayList<RamError>(ramErrors);
+	public List<ErrorLog> getUniqueErrorLogs(){
+		return new ArrayList<ErrorLog>(
+				new TreeSet<ErrorLog>(errorLogs)
+		);
+	}
+	
+	public List<ErrorLog> getRamErrors() {
+		return new ArrayList<ErrorLog>(errorLogs);
 	}
 	
 	

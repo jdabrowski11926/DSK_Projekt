@@ -25,4 +25,15 @@ public class ErrorLog {
 	public boolean isValue() {
 		return value;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof ErrorLog) {
+			ErrorLog el = (ErrorLog)obj;
+			return this.x == el.x &&
+				   this.y == el.y &&
+				   this.value == el.value;
+		}
+		return super.equals(obj);
+	}
 }
