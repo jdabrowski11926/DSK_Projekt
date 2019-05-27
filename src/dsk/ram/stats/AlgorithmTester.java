@@ -1,4 +1,4 @@
-package dsk.ram.test_algorithm;
+package dsk.ram.stats;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import dsk.ram.Ram;
 import dsk.ram.error.RamError;
+import dsk.ram.test_algorithm.RamTestAlgorithm;
 
 public class AlgorithmTester {
 	private List<RamError> errors;
@@ -15,14 +16,19 @@ public class AlgorithmTester {
 	
 	private int[] affectedCellCount;
 	private int[][] detectedCellCount;
+	private long[] algorithmStepsCount;
 	
-	
+	public long[] getAlgorithmStepsCount() {
+		return algorithmStepsCount;
+	}
+
 	public AlgorithmTester(Ram ram, List<RamError> errors, List<RamTestAlgorithm> algorithms) {
 		this.ram = ram;
 		this.errors = errors;
 		this.algorithms = algorithms;
 		
 		affectedCellCount = new int[errors.size()];
+		algorithmStepsCount = new long[algorithms.size()];
 		for(int i=0;i<errors.size(); i++) {
 			affectedCellCount[i] = errors.get(i).getAffectedAdresses().size();
 		}
@@ -68,8 +74,10 @@ public class AlgorithmTester {
 				tl.addErrorLogs(algorithm.test(ram));
 				testLogs.add(tl);
 				detectedCellCount[algorithmId][errorId] = tl.getUniqueErrorLogs().size();
+				algorithmStepsCount[algorithmId] = algorithm.getStepCounter();
 				algorithmId++;
 			}
+			
 			ram.clearErrors();
 			errorId++;
 		}
