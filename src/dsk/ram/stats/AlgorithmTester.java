@@ -1,4 +1,4 @@
-package dsk.ram.test_algorithm;
+package dsk.ram.stats;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import dsk.ram.Ram;
 import dsk.ram.error.RamError;
+import dsk.ram.test_algorithm.RamTestAlgorithm;
 
 public class AlgorithmTester {
 	private List<RamError> errors;

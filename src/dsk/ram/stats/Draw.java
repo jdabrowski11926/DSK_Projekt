@@ -31,37 +31,46 @@ public class Draw extends Application {
 
 	// https://docs.oracle.com/javafx/2/api/javafx/application/Application.html
 	// https://www.tutorialspoint.com/javafx/javafx_application.htm
+	
+	List<XYChart.Data<String, Number>> dataErrorsFound;
+	List<XYChart.Data<String, Number>> dataErrorsNotFound;
+	List<XYChart.Data<String, Number>> dataAlgorithmsSteps;
+	
+	BorderPane borderPane;
+	ToolBar toolbar;
+	
+	CategoryAxis xAxisError;
+	NumberAxis yAxisError;
+	CategoryAxis xAxisAlgorithm;
+	NumberAxis yAxisAlgorithm;
+	
+	StackedBarChart<String, Number> barChartErrors;
+	StackedBarChart<String, Number> barChartAlgorithm;
+	
+	XYChart.Series<String, Number> seriesError1;
+	XYChart.Series<String, Number> seriesError2;
+	XYChart.Series<String, Number> seriesAlgorithm;
+	
+	String[] labelListErrors = { "AF", "CF", "DRF", "PSF", "SAF", "SOF", "TF" };
+	String[] labelListAlgorithms = { "MATS", "MATS+", "MATS++", "MARCH X", "MARCH Y", "MARCH C-" };
+	
+	TableView table;
 
 	public void init() throws Exception {
-
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception {
-
-		// Ustawienia pocz¹tkowe wykresu
-		// ********************************************************
-		List<XYChart.Data<String, Number>> dataErrorsFound;
-		List<XYChart.Data<String, Number>> dataErrorsNotFound;
-		List<XYChart.Data<String, Number>> dataAlgorithmsSteps;
+		borderPane = new BorderPane();
+		toolbar = new ToolBar();
 		
-		BorderPane borderPane = new BorderPane();
-		ToolBar toolbar = new ToolBar();
+		xAxisError = new CategoryAxis();
+		yAxisError = new NumberAxis();
+		xAxisAlgorithm = new CategoryAxis();
+		yAxisAlgorithm = new NumberAxis();
 		
-		final CategoryAxis xAxisError = new CategoryAxis();
-		final NumberAxis yAxisError = new NumberAxis();
-		final CategoryAxis xAxisAlgorithm = new CategoryAxis();
-		final NumberAxis yAxisAlgorithm = new NumberAxis();
+		barChartErrors = new StackedBarChart<String, Number>(xAxisError, yAxisError);
+		barChartAlgorithm = new StackedBarChart<String, Number>(xAxisAlgorithm, yAxisAlgorithm);
 		
-		StackedBarChart<String, Number> barChartErrors = new StackedBarChart<String, Number>(xAxisError, yAxisError);
-		StackedBarChart<String, Number> barChartAlgorithm = new StackedBarChart<String, Number>(xAxisAlgorithm, yAxisAlgorithm);
-		
-		final XYChart.Series<String, Number> seriesError1 = new XYChart.Series<String, Number>();
-		final XYChart.Series<String, Number> seriesError2 = new XYChart.Series<String, Number>();
-		final XYChart.Series<String, Number> seriesAlgorithm = new XYChart.Series<String, Number>();
-		
-		String[] labelListErrors = { "AF", "CF", "DRF", "PSF", "SAF", "SOF", "TF" };
-		String[] labelListAlgorithms = { "MATS", "MATS+", "MATS++", "MARCH X", "MARCH Y", "MARCH C-" };
+		seriesError1 = new XYChart.Series<String, Number>();
+		seriesError2 = new XYChart.Series<String, Number>();
+		seriesAlgorithm = new XYChart.Series<String, Number>();
 		
 		xAxisError.setCategories(FXCollections.<String>observableArrayList(labelListErrors));
 		xAxisAlgorithm.setCategories(FXCollections.<String>observableArrayList(labelListAlgorithms));
@@ -78,6 +87,16 @@ public class Draw extends Application {
 		seriesError2.setName("B³êdy niewykryte");
 		seriesAlgorithm.setName("Iloœæ wykonanym kroków");
 		
+		TableView table = new TableView();
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception {
+
+		// Ustawienia pocz¹tkowe wykresu
+		// ********************************************************
+
+		
 		//Node fill = seriesError1.getNode().lookup(".chart-series-area-fill");
 		//Color color = new Color(0,0,1,1.0);
 	    //String colorString = "rgb(" + color.getRed() * 255 + "," + color.getGreen() * 255 + "," + color.getBlue() * 255 + ");";
@@ -87,52 +106,20 @@ public class Draw extends Application {
 		// ****************************************************
 		Parameters params = getParameters();
 		List<String> list = params.getRaw();
-		
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println("element : " + list.get(i));
-		}
-
-		dataErrorsFound = new ArrayList<>();
-		for (int i = 0; i < 7; i++) {
-			dataErrorsFound.add(new XYChart.Data<String, Number>(labelListErrors[i], Integer.parseInt(list.get(i))));
-			seriesError1.getData().add(dataErrorsFound.get(i));
-		}
-
-		dataErrorsNotFound = new ArrayList<>();
-		for (int i = 7; i < 14; i++) {
-			dataErrorsNotFound.add(new XYChart.Data<String, Number>(labelListErrors[i - 7], Integer.parseInt(list.get(i))));
-			seriesError2.getData().add(dataErrorsNotFound.get(i - 7));
-		}
-		
-		dataAlgorithmsSteps = new ArrayList<>();
-		for (int i = 14; i < list.size(); i++) {
-			dataAlgorithmsSteps.add(new XYChart.Data<String, Number>(labelListAlgorithms[i - 14], Integer.parseInt(list.get(i))));
-			seriesAlgorithm.getData().add(dataAlgorithmsSteps.get(i - 14));
-		}
+		setGraphData(list);
 		
 		// Ustawienia tabeli
 		// ****************************************************
-		final TableView table = new TableView();
-		TableColumn firstNameCol = new TableColumn("First Name");
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        TableColumn emailCol = new TableColumn("Email"); 
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-
-        
+		setTable();
         
 		// Ustawienia koñcowe sceny
 		// *****************************************************************
 		
 		Scene scene = new Scene(borderPane, 1400, 600);
-		borderPane.setTop(toolbar);
-		borderPane.setRight(barChartErrors);
-		borderPane.setCenter(barChartAlgorithm);
-		borderPane.setLeft(table);
+		setLayouts();
+		
 		barChartErrors.setCategoryGap(50);
 		barChartAlgorithm.setCategoryGap(50);
-		// for(int i=0 ; i<list.size()/2 ; i++) {
-		// displayLabelForData(dataErrorsFound.get(i));
-		// }
 		barChartErrors.getData().addAll(seriesError1, seriesError2);
 		barChartAlgorithm.getData().addAll(seriesAlgorithm);
 		
@@ -169,10 +156,38 @@ public class Draw extends Application {
 
 	}
 	
-	public void setErrorGraph() {
+	public void setGraphData(List<String> list) {
+		dataErrorsFound = new ArrayList<>();
+		for (int i = 0; i < 7; i++) {
+			dataErrorsFound.add(new XYChart.Data<String, Number>(labelListErrors[i], Integer.parseInt(list.get(i))));
+			seriesError1.getData().add(dataErrorsFound.get(i));
+		}
+
+		dataErrorsNotFound = new ArrayList<>();
+		for (int i = 7; i < 14; i++) {
+			dataErrorsNotFound.add(new XYChart.Data<String, Number>(labelListErrors[i - 7], Integer.parseInt(list.get(i))));
+			seriesError2.getData().add(dataErrorsNotFound.get(i - 7));
+		}
 		
+		dataAlgorithmsSteps = new ArrayList<>();
+		for (int i = 14; i < list.size(); i++) {
+			dataAlgorithmsSteps.add(new XYChart.Data<String, Number>(labelListAlgorithms[i - 14], Integer.parseInt(list.get(i))));
+			seriesAlgorithm.getData().add(dataAlgorithmsSteps.get(i - 14));
+		}
 	}
 	
+	public void setTable() {
+		table = new TableView();
+		TableColumn firstNameCol = new TableColumn("First Name");
+        TableColumn lastNameCol = new TableColumn("Last Name");
+        TableColumn emailCol = new TableColumn("Email"); 
+        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+	}
 	
-	
+	public void setLayouts() {
+		borderPane.setTop(toolbar);
+		borderPane.setRight(barChartErrors);
+		borderPane.setCenter(barChartAlgorithm);
+		borderPane.setLeft(table);
+	}
 }

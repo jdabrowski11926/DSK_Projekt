@@ -1,4 +1,4 @@
-package dsk.ram.test_algorithm;
+package dsk.ram.stats;
 
 import dsk.ram.error.Address;
 

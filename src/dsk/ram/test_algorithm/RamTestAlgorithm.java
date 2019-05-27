@@ -3,6 +3,7 @@ package dsk.ram.test_algorithm;
 import java.util.ArrayList;
 import java.util.List;
 import dsk.ram.Ram;
+import dsk.ram.stats.ErrorLog;
 
 public abstract class RamTestAlgorithm {
 

@@ -15,8 +15,9 @@ import dsk.ram.error.RamError;
 import dsk.ram.error.Saf;
 import dsk.ram.error.Sof;
 import dsk.ram.error.Tf;
+import dsk.ram.stats.AlgorithmTester;
 import dsk.ram.stats.Draw;
-import dsk.ram.test_algorithm.AlgorithmTester;
+import dsk.ram.stats.TestLog;
 import dsk.ram.test_algorithm.MarchCMinus;
 import dsk.ram.test_algorithm.MarchX;
 import dsk.ram.test_algorithm.MarchY;
@@ -24,7 +25,6 @@ import dsk.ram.test_algorithm.Mats;
 import dsk.ram.test_algorithm.MatsPlus;
 import dsk.ram.test_algorithm.MatsPlusPlus;
 import dsk.ram.test_algorithm.RamTestAlgorithm;
-import dsk.ram.test_algorithm.TestLog;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -37,7 +37,7 @@ public class MainClass {
 	public static void main(String[] args) {		
 
 	int RAM_LENGTH = 100;
-	int ITERATIONS = 10000;
+	int ITERATIONS = 100;
 	int RAM_WIDTH = 8;
 	
 	Ram ram = new Ram(RAM_LENGTH);

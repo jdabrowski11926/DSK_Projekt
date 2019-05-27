@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dsk.ram.Ram;
+import dsk.ram.stats.ErrorLog;
 
 
 public class Mats extends RamTestAlgorithm{
