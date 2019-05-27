@@ -56,6 +56,12 @@ public class Psf extends RamError{
 
 	@Override
 	public String getName() {
+		switch (psfType) {
+		case PSF_4:
+			return "PSF 9";
+		case PSF_9:
+			return "PSF 4";
+		}
 		return "PSF";
 	}
 	

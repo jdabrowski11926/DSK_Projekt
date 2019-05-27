@@ -51,6 +51,16 @@ public class Cf extends RamError{
 
 	@Override
 	public String getName() {
+		switch (cfType) {
+		case CF_IN:
+			return "CFin";
+		case CF_ID_0:
+			return "CFid 0";
+		case CF_ID_1:
+			return "CFid 1";
+		case CF_D:
+			return "CFd";
+		}
 		return "CF";
 	}
 	

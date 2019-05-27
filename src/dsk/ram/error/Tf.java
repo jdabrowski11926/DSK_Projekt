@@ -38,6 +38,12 @@ public class Tf extends RamError{
 
 	@Override
 	public String getName() {
+		switch (disabledDirection) {
+		case ZERO_TO_ONE:
+			return "TF 0->1";
+		case ONE_TO_ZERO:
+			return "TF 1->0";
+		}
 		return "TF";
 	}
 
