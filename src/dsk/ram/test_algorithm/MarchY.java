@@ -1,12 +1,12 @@
-package dsk.ram_test;
+package dsk.ram.test_algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import dsk.ram.Ram;
-import dsk.ram_test.RamTestAlgorithm.Direction;
-import dsk.ram_test.RamTestAlgorithm.Operation;
+import dsk.ram.test_algorithm.RamTestAlgorithm.Direction;
+import dsk.ram.test_algorithm.RamTestAlgorithm.Operation;
 
 public class MarchY extends RamTestAlgorithm{
 

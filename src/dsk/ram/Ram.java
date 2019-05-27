@@ -5,7 +5,7 @@ import java.util.BitSet;
 import java.util.Random;
 import java.util.TreeMap;
 
-import dsk.ram_error.RamError;
+import dsk.ram.error.RamError;
 
 public class Ram {
 	private byte[] memory;

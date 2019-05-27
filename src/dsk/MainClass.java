@@ -4,12 +4,12 @@ package dsk;
 import java.util.List;
 
 import dsk.ram.Ram;
-import dsk.ram_error.Af;
-import dsk.ram_error.Cf;
-import dsk.ram_error.RamError;
-import dsk.ram_test.Mats;
-import dsk.ram_test.RamTestAlgorithm;
-import dsk.stats.Draw;
+import dsk.ram.error.Af;
+import dsk.ram.error.Cf;
+import dsk.ram.error.RamError;
+import dsk.ram.stats.Draw;
+import dsk.ram.test_algorithm.Mats;
+import dsk.ram.test_algorithm.RamTestAlgorithm;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;

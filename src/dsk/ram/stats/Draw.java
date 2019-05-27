@@ -1,4 +1,4 @@
-package dsk.stats;
+package dsk.ram.stats;
 
 import javafx.application.Application;
 import javafx.scene.Group;

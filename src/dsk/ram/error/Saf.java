@@ -1,4 +1,4 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import dsk.ram.Ram;
 
