@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public class Psf extends ErrorTemplate{
+public class Psf extends RamError{
 	public enum PsfType{
 		PSF_9, PSF_4
 	}

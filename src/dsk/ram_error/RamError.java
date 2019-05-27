@@ -2,12 +2,12 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public abstract class ErrorTemplate {
+public abstract class RamError {
 	protected Ram ram;
 	private int x;
 	private int y;
 	
-	public ErrorTemplate(Ram ram, int x, int y) {
+	public RamError(Ram ram, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.ram = ram;

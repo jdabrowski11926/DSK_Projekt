@@ -4,7 +4,7 @@ import java.util.Random;
 
 import dsk.ram.Ram;
 
-public class Af extends ErrorTemplate{
+public class Af extends RamError{
 
 	public Af(Ram ram, int x, int y) {
 		super(ram, x, y);

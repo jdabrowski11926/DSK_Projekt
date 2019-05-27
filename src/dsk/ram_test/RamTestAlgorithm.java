@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import dsk.ram.Ram;
 
-public abstract class TestAlgorithm {
+public abstract class RamTestAlgorithm {
 
-	protected Ram ram;
-	protected long counter;
+	protected long stepCounter;
 
 	enum Direction {
 		UP, DOWN
@@ -17,45 +16,48 @@ public abstract class TestAlgorithm {
 		WRITE_0, WRITE_1, READ_0, READ_1
 	}
 
-	public TestAlgorithm(Ram ram) {
-		this.ram = ram;
-		counter = 0;
+	public RamTestAlgorithm() {
+		stepCounter = 0;
 	}
 
-	public abstract List<ErrorLog> test();
+	public abstract List<ErrorLog> test(Ram ram);
 
-	protected void writeRam(int x, int y, boolean value) {
-		counter++;
+	protected void writeRam(int x, int y, boolean value, Ram ram) {
+		stepCounter++;
 		ram.write(x, y, value);
 	}
 
-	protected boolean readRam(int x, int y) {
-		counter++;
+	protected boolean readRam(int x, int y, Ram ram) {
+		stepCounter++;
 		return ram.read(x, y);
 	}
 
-	protected List<ErrorLog> runAlgorithmStep(Direction dir, List<Operation> ops) {
+	public long getStepCounter() {
+		return stepCounter;
+	}
+
+	protected List<ErrorLog> runAlgorithmStep(Direction dir, List<Operation> ops, Ram ram) {
 		List<ErrorLog> result = new ArrayList<ErrorLog>();
 		switch (dir) {
 		case DOWN:
-			for (int i = this.ram.getRamSizeX()-1; i >= 0; i--) {
-				for (int j =  this.ram.getRamSizeY()-1; j >= 0; j--) {
+			for (int i = ram.getRamSizeX()-1; i >= 0; i--) {
+				for (int j =  ram.getRamSizeY()-1; j >= 0; j--) {
 					for (Operation op : ops) {
 						switch (op) {
 						case WRITE_0:
-							writeRam(i, j, false);
+							writeRam(i, j, false, ram);
 							break;
 						case WRITE_1:
-							writeRam(i, j, true);
+							writeRam(i, j, true, ram);
 							break;
 						case READ_0:
-							if (readRam(i, j) == true) {
+							if (readRam(i, j, ram) == true) {
 								result.add(new ErrorLog(i, j, true));
 								System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
 							}
 							break;
 						case READ_1:
-							if (readRam(i, j) == false) {
+							if (readRam(i, j, ram) == false) {
 								result.add(new ErrorLog(i, j, false));
 								System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
 							}
@@ -67,25 +69,25 @@ public abstract class TestAlgorithm {
 			}
 			break;
 		case UP:
-			for (int i = 0; i < this.ram.getRamSizeX(); i++) {
-				for (int j = 0; j < this.ram.getRamSizeY(); j++) {
+			for (int i = 0; i < ram.getRamSizeX(); i++) {
+				for (int j = 0; j < ram.getRamSizeY(); j++) {
 
 					for (Operation op : ops) {
 						switch (op) {
 						case WRITE_0:
-							writeRam(i, j, false);
+							writeRam(i, j, false, ram);
 							break;
 						case WRITE_1:
-							writeRam(i, j, true);
+							writeRam(i, j, true, ram);
 							break;
 						case READ_0:
-							if (readRam(i, j) == true) {
+							if (readRam(i, j, ram) == true) {
 								result.add(new ErrorLog(i, j, true));
 								System.out.println("Unexpected 1 at [" + i + ", " + j + "]");
 							}
 							break;
 						case READ_1:
-							if (readRam(i, j) == false) {
+							if (readRam(i, j, ram) == false) {
 								result.add(new ErrorLog(i, j, false));
 								System.out.println("Unexpected 0 at [" + i + ", " + j + "]");
 							}

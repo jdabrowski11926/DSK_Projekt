@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public class Cf extends ErrorTemplate{
+public class Cf extends RamError{
 	public enum CfType{
 		CF_IN, CF_ID_0, CF_ID_1, CF_D
 	}

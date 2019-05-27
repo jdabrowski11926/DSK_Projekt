@@ -5,11 +5,11 @@ import java.util.BitSet;
 import java.util.Random;
 import java.util.TreeMap;
 
-import dsk.ram_error.ErrorTemplate;
+import dsk.ram_error.RamError;
 
 public class Ram {
 	private byte[] memory;
-	private ArrayList<ErrorTemplate> errors = new ArrayList<ErrorTemplate>();
+	private ArrayList<RamError> errors = new ArrayList<RamError>();
 	
 	public Ram(int size){
 		memory = new byte[size];
@@ -25,31 +25,10 @@ public class Ram {
 			BitOperations.printBinary(memory[i]);
 		}
 	}
-	
-	public void damageRam(int SAF, int SOF, int DRF, int TF, int CF, int PSF) {
-		for(int i=0;i<SAF;i++) {
-			
-		}
-		for(int i=0;i<SOF;i++) {
-			
-		}
-		for(int i=0;i<DRF;i++) {
-			
-		}
-		for(int i=0;i<TF;i++) {
-			
-		}
-		for(int i=0;i<CF;i++) {
-			
-		}
-		for(int i=0;i<PSF;i++) {
-			
-		}
-	}
-	
+		
 	// Interfejs porgramistyczny do obs³ugi klasy
-	public ErrorTemplate getError(int x, int y) {
-		for(ErrorTemplate error: errors) {
+	public RamError getError(int x, int y) {
+		for(RamError error: errors) {
 			if(error.affectsXY(x, y)) return error;
 		}
 		return null;
@@ -69,13 +48,17 @@ public class Ram {
 		return BitOperations.getBit(memory[x], y);
 	}
 	
-	public void addError(ErrorTemplate et) {
+	public void addError(RamError et) {
 		this.errors.add(et);
+	}
+	
+	public void clearErrors() {
+		this.errors.clear();
 	}
 	
 	// Operacje mogace nie zadzialac (wykorzystane w symulacji)
 	public void write(int x, int y, boolean value) {
-		ErrorTemplate error = getError(x, y);
+		RamError error = getError(x, y);
 		if(error != null) {
 			error.setRam(x, y, value);
 		}else {
@@ -84,7 +67,7 @@ public class Ram {
 	}
 	
 	public boolean read(int x, int y) {
-		ErrorTemplate error = getError(x, y);
+		RamError error = getError(x, y);
 		if(error != null) {
 			return error.getRam(x, y);
 		}else {

@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public class Sof extends ErrorTemplate{
+public class Sof extends RamError{
 
 	private boolean returnValue;
 

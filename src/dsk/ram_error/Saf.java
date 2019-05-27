@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public class Saf extends ErrorTemplate{
+public class Saf extends RamError{
 	public Saf(Ram ram, int x, int y) {
 		super(ram, x, y);
 	}

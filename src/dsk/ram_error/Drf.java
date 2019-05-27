@@ -4,7 +4,7 @@ import java.util.Random;
 
 import dsk.ram.Ram;
 
-public class Drf extends ErrorTemplate{
+public class Drf extends RamError{
 	private int timeToActivate;
 	private int minTimeToActivate;
 	private int maxTimeToActivate;

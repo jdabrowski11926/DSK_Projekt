@@ -2,7 +2,7 @@ package dsk.ram_error;
 
 import dsk.ram.Ram;
 
-public class Tf extends ErrorTemplate{
+public class Tf extends RamError{
 	public enum Direction{
 		ZERO_TO_ONE, ONE_TO_ZERO
 	}
