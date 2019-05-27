@@ -1,10 +1,10 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import java.util.Random;
 
 import dsk.ram.Ram;
 
-public class Drf extends ErrorTemplate{
+public class Drf extends RamError{
 	private int timeToActivate;
 	private int minTimeToActivate;
 	private int maxTimeToActivate;
@@ -38,5 +38,10 @@ public class Drf extends ErrorTemplate{
 		);
 		ram.setRam(x, y, value);
 		
+	}
+
+	@Override
+	public String getName() {
+		return "DRF";
 	}
 }

@@ -1,8 +1,8 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import dsk.ram.Ram;
 
-public class Tf extends ErrorTemplate{
+public class Tf extends RamError{
 	public enum Direction{
 		ZERO_TO_ONE, ONE_TO_ZERO
 	}
@@ -34,6 +34,11 @@ public class Tf extends ErrorTemplate{
 			break;
 		}
 		
+	}
+
+	@Override
+	public String getName() {
+		return "TF";
 	}
 
 }

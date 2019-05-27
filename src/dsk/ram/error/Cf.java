@@ -1,8 +1,8 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import dsk.ram.Ram;
 
-public class Cf extends ErrorTemplate{
+public class Cf extends RamError{
 	public enum CfType{
 		CF_IN, CF_ID_0, CF_ID_1, CF_D
 	}
@@ -44,6 +44,11 @@ public class Cf extends ErrorTemplate{
 			break;
 		}
 		
+	}
+
+	@Override
+	public String getName() {
+		return "CF";
 	}
 
 

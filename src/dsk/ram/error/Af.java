@@ -1,10 +1,10 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import java.util.Random;
 
 import dsk.ram.Ram;
 
-public class Af extends ErrorTemplate{
+public class Af extends RamError{
 
 	public Af(Ram ram, int x, int y) {
 		super(ram, x, y);
@@ -51,6 +51,11 @@ public class Af extends ErrorTemplate{
 	@Override
 	public void setRam(int x, int y, boolean value) {
 		ram.setRam(x, y, value);
+	}
+
+	@Override
+	public String getName() {
+		return "AF";
 	}
 
 }

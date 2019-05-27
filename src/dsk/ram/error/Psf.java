@@ -1,8 +1,8 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
 import dsk.ram.Ram;
 
-public class Psf extends ErrorTemplate{
+public class Psf extends RamError{
 	public enum PsfType{
 		PSF_9, PSF_4
 	}
@@ -48,6 +48,11 @@ public class Psf extends ErrorTemplate{
 		}catch(IndexOutOfBoundsException e) {
 			return false;
 		}
+	}
+
+	@Override
+	public String getName() {
+		return "PSF";
 	}
 
 }
