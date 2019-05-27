@@ -101,7 +101,6 @@ public class Psf extends RamError{
 				result.add(candidate);
 			}
 		}
-		
 		return result;
 	}
 

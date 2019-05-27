@@ -16,14 +16,19 @@ public class AlgorithmTester {
 	
 	private int[] affectedCellCount;
 	private int[][] detectedCellCount;
+	private long[] algorithmStepsCount;
 	
-	
+	public long[] getAlgorithmStepsCount() {
+		return algorithmStepsCount;
+	}
+
 	public AlgorithmTester(Ram ram, List<RamError> errors, List<RamTestAlgorithm> algorithms) {
 		this.ram = ram;
 		this.errors = errors;
 		this.algorithms = algorithms;
 		
 		affectedCellCount = new int[errors.size()];
+		algorithmStepsCount = new long[algorithms.size()];
 		for(int i=0;i<errors.size(); i++) {
 			affectedCellCount[i] = errors.get(i).getAffectedAdresses().size();
 		}
@@ -69,8 +74,10 @@ public class AlgorithmTester {
 				tl.addErrorLogs(algorithm.test(ram));
 				testLogs.add(tl);
 				detectedCellCount[algorithmId][errorId] = tl.getUniqueErrorLogs().size();
+				algorithmStepsCount[algorithmId] = algorithm.getStepCounter();
 				algorithmId++;
 			}
+			
 			ram.clearErrors();
 			errorId++;
 		}

@@ -16,7 +16,7 @@ public class Af extends RamError{
 		Random random = new Random();
 		int fate = random.nextInt(4);
 		boolean neighborValue = false;
-		System.out.println("x = "+x+ " y = "+y+ ram.getRamSizeX());
+		//System.out.println("x = "+x+ " y = "+y+ ram.getRamSizeX());
 		if(fate==0) {	// Komórka ni¿ej
 			if(x>=ram.getRamSizeX()-1) {
 				neighborValue = ram.getRam(x-1, y);
