@@ -98,8 +98,9 @@ public class MainClass {
 		new Thread() {
             @Override
             public void run() {
-            	String[] a = {"1", "2", "-10", "4", "5", "6", "7", 
-            			"1", "2", "3", "4", "5", "6", "7"};
+            	String[] a = {"1", "2", "20", "4", "5", "6", "7", 
+            			"1", "2", "3", "4", "5", "6", "7",
+            			"321", "332", "543", "111", "666", "765"};
                 draw.launch(Draw.class, a);       
             }
         }.start();
