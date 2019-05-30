@@ -232,7 +232,7 @@ public class Draw extends Application {
 		barChartErrors.getData().addAll(seriesError1, seriesError2);
 		barChartAlgorithm.getData().addAll(seriesAlgorithm);
 		
-		Scene scene = new Scene(tabPane, 1400, 600);
+		Scene scene = new Scene(tabPane, 1000, 600);
 		
 		tabPane.getTabs().add(tabSingleAlgorighm);
 		tabPane.getTabs().add(tabSummary);
@@ -328,7 +328,7 @@ public class Draw extends Application {
                 }
             });
             table.setItems(data);
-            tc.setPrefWidth(120);
+            tc.setPrefWidth(70);
             table.getColumns().add(tc);
 		}
 	}
