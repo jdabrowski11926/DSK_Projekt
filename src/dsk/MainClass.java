@@ -43,11 +43,5 @@ public class MainClass {
             	Draw.launch(Draw.class);       
             }
         }.start();
-        
-        //draw.printSomething();
-		
-		
-		
-		
 	}
 }

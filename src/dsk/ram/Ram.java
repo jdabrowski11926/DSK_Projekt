@@ -8,16 +8,21 @@ import java.util.TreeMap;
 import dsk.ram.error.RamError;
 
 public class Ram {
-	private byte[] memory;
+	private short[] memory;
+	public static final int RAM_SIZE_Y = Short.SIZE;
+	
 	private ArrayList<RamError> errors = new ArrayList<RamError>();
 	
 	public Ram(int size){
-		memory = new byte[size];
+		memory = new short[size];
 	}
 	
 	public void randomRam() {
 		Random generator = new Random();
-		generator.nextBytes(memory);
+		for(int i=0;i<getRamSizeX();i++) {
+			memory[i] = (short)generator.nextInt(1 << 16); // any short
+		}
+		//generator.nextBytes(memory);
 	}
 	
 	public void showRam() {
@@ -35,14 +40,14 @@ public class Ram {
 	}
 	
 	public void setRam(int x, int y, boolean value) {
-		if(x >= memory.length || y >= 8) {
+		if(x >= memory.length || y >= RAM_SIZE_Y) {
 			throw new IndexOutOfBoundsException();
 		}
 		memory[x] = BitOperations.setBit(memory[x], y, value);
 	}
 	
 	public boolean getRam(int x, int y) {
-		if(x >= memory.length || y >= 8) {
+		if(x >= memory.length || y >= RAM_SIZE_Y) {
 			throw new IndexOutOfBoundsException();
 		}
 		return BitOperations.getBit(memory[x], y);
@@ -80,6 +85,6 @@ public class Ram {
 	}
 	
 	public int getRamSizeY() {
-		return 8;
+		return RAM_SIZE_Y;
 	}
 }

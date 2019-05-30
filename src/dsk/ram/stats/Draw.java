@@ -98,7 +98,7 @@ public class Draw extends Application {
 	}
 	
 	public SimulationSummary runSimulation(int ramLength, int iterations) {
-		int RAM_WIDTH = 8;
+		int RAM_WIDTH = Ram.RAM_SIZE_Y;
 		
 		Ram ram = new Ram(ramLength);
 		ram.randomRam();
@@ -205,7 +205,7 @@ public class Draw extends Application {
 		
 
 		//Licze symulacje
-		simSummary = runSimulation(100, 100);
+		simSummary = runSimulation(64, 100);
 		
 
 		xAxisError.setLabel("Typ b³êdu");
