@@ -1,8 +1,8 @@
-package dsk.ram_error;
+package dsk.ram.error;
 
-import dsk.Ram;
+import dsk.ram.Ram;
 
-public class Sof extends ErrorTemplate{
+public class Sof extends RamError{
 
 	private boolean returnValue;
 
@@ -19,6 +19,11 @@ public class Sof extends ErrorTemplate{
 	@Override
 	public void setRam(int x, int y, boolean value) {
 		ram.setRam(x, y, value);
+	}
+
+	@Override
+	public String getName() {
+		return "SOF";
 	}
 
 
