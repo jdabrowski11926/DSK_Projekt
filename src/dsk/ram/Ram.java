@@ -8,27 +8,30 @@ import java.util.TreeMap;
 import dsk.ram.error.RamError;
 
 public class Ram {
-	private short[] memory;
-	public static final int RAM_SIZE_Y = Short.SIZE;
+	private boolean[][] memory;
+	//public static final int RAM_SIZE_Y = Short.SIZE;
 	
 	private ArrayList<RamError> errors = new ArrayList<RamError>();
 	
-	public Ram(int size){
-		memory = new short[size];
+	public Ram(int sizeX, int sizeY){
+		memory = new boolean[sizeX][sizeY];
 	}
 	
 	public void randomRam() {
 		Random generator = new Random();
 		for(int i=0;i<getRamSizeX();i++) {
-			memory[i] = (short)generator.nextInt(1 << 16); // any short
+			for(int j=0;j<getRamSizeX();j++) {
+				memory[i][j] = generator.nextBoolean(); // any short
+			}
 		}
 		//generator.nextBytes(memory);
 	}
 	
 	public void showRam() {
-		for(int i=0;i<memory.length; i++) {
-			BitOperations.printBinary(memory[i]);
-		}
+		//TODO - wyswietlanie ramu wiersz po wierszu
+//		for(int i=0;i<memory.length; i++) {
+//			BitOperations.printBinary(memory[i]);
+//		}
 	}
 		
 	// Interfejs porgramistyczny do obs³ugi klasy
@@ -40,17 +43,18 @@ public class Ram {
 	}
 	
 	public void setRam(int x, int y, boolean value) {
-		if(x >= memory.length || y >= RAM_SIZE_Y) {
+		if(x >= memory.length || y >= memory[0].length) {
 			throw new IndexOutOfBoundsException();
 		}
-		memory[x] = BitOperations.setBit(memory[x], y, value);
+		memory[x][y] = value;
+		//memory[x] = BitOperations.setBit(memory[x], y, value);
 	}
 	
 	public boolean getRam(int x, int y) {
-		if(x >= memory.length || y >= RAM_SIZE_Y) {
+		if(x >= memory.length || y >= memory[0].length) {
 			throw new IndexOutOfBoundsException();
 		}
-		return BitOperations.getBit(memory[x], y);
+		return memory[x][y];//BitOperations.getBit(memory[x], y);
 	}
 	
 	public void addError(RamError et) {
@@ -85,6 +89,6 @@ public class Ram {
 	}
 	
 	public int getRamSizeY() {
-		return RAM_SIZE_Y;
+		return memory[0].length;
 	}
 }

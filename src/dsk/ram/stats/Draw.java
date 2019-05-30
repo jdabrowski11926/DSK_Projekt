@@ -97,10 +97,9 @@ public class Draw extends Application {
 		
 	}
 	
-	public SimulationSummary runSimulation(int ramLength, int iterations) {
-		int RAM_WIDTH = Ram.RAM_SIZE_Y;
+	public SimulationSummary runSimulation(int ramLength, int ramWidth, int iterations) {
 		
-		Ram ram = new Ram(ramLength);
+		Ram ram = new Ram(ramLength, ramWidth);
 		ram.randomRam();
 			
 		Random randomizer = new Random();
@@ -109,13 +108,13 @@ public class Draw extends Application {
 		
 		for(int i=0; i<iterations; i++) {
 			int x = randomizer.nextInt(ramLength);
-			int y = randomizer.nextInt(RAM_WIDTH);
+			int y = randomizer.nextInt(ramWidth);
 			
 			int x1 = randomizer.nextInt(ramLength);
-			int y1 = randomizer.nextInt(RAM_WIDTH) ;
+			int y1 = randomizer.nextInt(ramWidth) ;
 			while(x == x1 && y == y1) {
 				x1 = randomizer.nextInt(ramLength);
-				y1 = randomizer.nextInt(RAM_WIDTH);
+				y1 = randomizer.nextInt(ramWidth);
 			}
 			
 			AlgorithmTester at = new AlgorithmTester(
@@ -205,7 +204,7 @@ public class Draw extends Application {
 		
 
 		//Licze symulacje
-		simSummary = runSimulation(16, 1000);
+		simSummary = runSimulation(16, 16, 1000);
 		
 
 		xAxisError.setLabel("Typ b³êdu");
@@ -232,7 +231,7 @@ public class Draw extends Application {
 		barChartErrors.getData().addAll(seriesError1, seriesError2);
 		barChartAlgorithm.getData().addAll(seriesAlgorithm);
 		
-		Scene scene = new Scene(tabPane, 1400, 600);
+		Scene scene = new Scene(tabPane, 1000, 600);
 		
 		tabPane.getTabs().add(tabSingleAlgorighm);
 		tabPane.getTabs().add(tabSummary);
@@ -328,7 +327,7 @@ public class Draw extends Application {
                 }
             });
             table.setItems(data);
-            tc.setPrefWidth(120);
+            tc.setPrefWidth(70);
             table.getColumns().add(tc);
 		}
 	}
