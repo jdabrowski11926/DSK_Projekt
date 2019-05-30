@@ -98,7 +98,7 @@ public class Draw extends Application {
 	}
 	
 	public SimulationSummary runSimulation(int ramLength, int iterations) {
-		int RAM_WIDTH = 8;
+		int RAM_WIDTH = Ram.RAM_SIZE_Y;
 		
 		Ram ram = new Ram(ramLength);
 		ram.randomRam();
@@ -205,7 +205,7 @@ public class Draw extends Application {
 		
 
 		//Licze symulacje
-		simSummary = runSimulation(100, 100);
+		simSummary = runSimulation(16, 1000);
 		
 
 		xAxisError.setLabel("Typ b³êdu");
@@ -248,7 +248,6 @@ public class Draw extends Application {
 			button.setOnAction((e)->{
 				if(e.getSource() instanceof Button) {
 					Button b = (Button)e.getSource();
-					System.out.println(b.getText());
 					for(int j = 0;j<simSummary.algorithmNames.length;j++) {
 						if(simSummary.algorithmNames[j] == b.getText()) {
 							displayAlgorithmData(j);
@@ -300,10 +299,14 @@ public class Draw extends Application {
 		table = new TableView();
 		table.getColumns().clear();
 		
-		String[][] errorCountArray = new String[simSummary.errorNames.length][simSummary.algorithmNames.length];
-		for(int i=0 ; i<simSummary.algorithmNames.length; i++) {
+		String[][] errorCountArray = new String[simSummary.errorNames.length][simSummary.algorithmNames.length+1];
+		for(int i=0 ; i<simSummary.algorithmNames.length+1; i++) {
 			for(int j=0; j<simSummary.errorNames.length; j++) {
-				errorCountArray[j][i] = simSummary.detectedCellsCount[i][j] + "/" + simSummary.affectedCellsCount[j] + " ("+simSummary.errorNames[j]+")";
+				if(i == 0) {
+					errorCountArray[j][i] = simSummary.errorNames[j];
+				}else {
+					errorCountArray[j][i] = simSummary.detectedCellsCount[i-1][j] + "/" + simSummary.affectedCellsCount[j];
+				}
 			}
 		}
 		ObservableList<String[]> data = FXCollections.observableArrayList();
@@ -311,7 +314,12 @@ public class Draw extends Application {
 		//data.remove(0);//remove titles from data
 		table = new TableView();
 		for (int i = 0; i < errorCountArray[0].length; i++) {
-			TableColumn tc = new TableColumn(simSummary.algorithmNames[i]);
+			TableColumn tc = null;
+			if(i == 0) {
+				tc = new TableColumn("");
+			}else {
+				tc = new TableColumn(simSummary.algorithmNames[i-1]);
+			}
 			final int colNo = i;
             tc.setCellValueFactory(new Callback<CellDataFeatures<String[], String>, ObservableValue<String>>() {
                 @Override
@@ -320,7 +328,7 @@ public class Draw extends Application {
                 }
             });
             table.setItems(data);
-            tc.setPrefWidth(90);
+            tc.setPrefWidth(120);
             table.getColumns().add(tc);
 		}
 	}
